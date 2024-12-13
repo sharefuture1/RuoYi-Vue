@@ -33,7 +33,7 @@ import com.ruoyi.system.service.ISysUserService;
 /**
  * 用户 业务层处理
  * 
- * @author ruoyi
+ * @author YOUNG1
  */
 @Service
 public class SysUserServiceImpl implements ISysUserService
@@ -71,6 +71,9 @@ public class SysUserServiceImpl implements ISysUserService
     @DataScope(deptAlias = "d", userAlias = "u")
     public List<SysUser> selectUserList(SysUser user)
     {
+
+
+//        return userMapper.selectUserById(user);
         return userMapper.selectUserList(user);
     }
 

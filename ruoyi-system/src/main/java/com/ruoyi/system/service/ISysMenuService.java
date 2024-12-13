@@ -9,7 +9,7 @@ import com.ruoyi.system.domain.vo.RouterVo;
 /**
  * 菜单 业务层
  * 
- * @author ruoyi
+ * @author YOUNG1
  */
 public interface ISysMenuService
 {

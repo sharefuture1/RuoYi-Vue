@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.wh.mapper.AorgassetMapper">
+    
+    <resultMap type="Aorgasset" id="AorgassetResult">
+        <result property="id"    column="ID"    />
+        <result property="floorserial"    column="FloorSerial"    />
+        <result property="officename"    column="OfficeName"    />
+        <result property="printermodel"    column="PrinterModel"    />
+        <result property="factorydate"    column="FactoryDate"    />
+        <result property="yearsinuse"    column="YearsInUse"    />
+        <result property="serialno"    column="SerialNo"    />
+        <result property="assetcode"    column="AssetCode"    />
+        <result property="organizationname"    column="OrganizationName"    />
+        <result property="statsdate"    column="StatsDate"    />
+        <result property="universalno"    column="UniversalNo"    />
+        <result property="remarks"    column="Remarks"    />
+    </resultMap>
+
+    <sql id="selectAorgassetVo">
+        select ID, FloorSerial, OfficeName, PrinterModel, FactoryDate, YearsInUse, SerialNo, AssetCode, OrganizationName, StatsDate, UniversalNo, Remarks from aorgasset
+    </sql>
+
+    <select id="selectAorgassetList" parameterType="Aorgasset" resultMap="AorgassetResult">
+        <include refid="selectAorgassetVo"/>
+        <where>  
+            <if test="floorserial != null  and floorserial != ''"> and FloorSerial like concat('%', #{floorserial}, '%')</if>
+            <if test="officename != null  and officename != ''"> and OfficeName like concat('%', #{officename}, '%')</if>
+            <if test="printermodel != null  and printermodel != ''"> and PrinterModel like concat('%', #{printermodel}, '%')</if>
+            <if test="factorydate != null "> and FactoryDate like concat('%', #{factorydate}, '%')</if>
+            <if test="yearsinuse != null "> and YearsInUse = #{yearsinuse}</if>
+            <if test="serialno != null  and serialno != ''"> and SerialNo like concat('%', #{serialno}, '%')</if>
+            <if test="assetcode != null  and assetcode != ''"> and AssetCode like concat('%', #{assetcode}, '%')</if>
+            <if test="organizationname != null  and organizationname != ''"> and OrganizationName like concat('%', #{organizationname}, '%')</if>
+            <if test="statsdate != null "> and StatsDate like concat('%', #{statsdate}, '%')</if>
+            <if test="universalno != null  and universalno != ''"> and UniversalNo like concat('%', #{universalno}, '%')</if>
+            <if test="remarks != null  and remarks != ''"> and Remarks like concat('%', #{remarks}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectAorgassetById" parameterType="Integer" resultMap="AorgassetResult">
+        <include refid="selectAorgassetVo"/>
+        where ID = #{id}
+    </select>
+        
+    <insert id="insertAorgasset" parameterType="Aorgasset" useGeneratedKeys="true" keyProperty="id">
+        insert into aorgasset
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="floorserial != null">FloorSerial,</if>
+            <if test="officename != null">OfficeName,</if>
+            <if test="printermodel != null">PrinterModel,</if>
+            <if test="factorydate != null">FactoryDate,</if>
+            <if test="yearsinuse != null">YearsInUse,</if>
+            <if test="serialno != null">SerialNo,</if>
+            <if test="assetcode != null">AssetCode,</if>
+            <if test="organizationname != null">OrganizationName,</if>
+            <if test="statsdate != null">StatsDate,</if>
+            <if test="universalno != null">UniversalNo,</if>
+            <if test="remarks != null">Remarks,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="floorserial != null">#{floorserial},</if>
+            <if test="officename != null">#{officename},</if>
+            <if test="printermodel != null">#{printermodel},</if>
+            <if test="factorydate != null">#{factorydate},</if>
+            <if test="yearsinuse != null">#{yearsinuse},</if>
+            <if test="serialno != null">#{serialno},</if>
+            <if test="assetcode != null">#{assetcode},</if>
+            <if test="organizationname != null">#{organizationname},</if>
+            <if test="statsdate != null">#{statsdate},</if>
+            <if test="universalno != null">#{universalno},</if>
+            <if test="remarks != null">#{remarks},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAorgasset" parameterType="Aorgasset">
+        update aorgasset
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="floorserial != null">FloorSerial = #{floorserial},</if>
+            <if test="officename != null">OfficeName = #{officename},</if>
+            <if test="printermodel != null">PrinterModel = #{printermodel},</if>
+            <if test="factorydate != null">FactoryDate = #{factorydate},</if>
+            <if test="yearsinuse != null">YearsInUse = #{yearsinuse},</if>
+            <if test="serialno != null">SerialNo = #{serialno},</if>
+            <if test="assetcode != null">AssetCode = #{assetcode},</if>
+            <if test="organizationname != null">OrganizationName = #{organizationname},</if>
+            <if test="statsdate != null">StatsDate = #{statsdate},</if>
+            <if test="universalno != null">UniversalNo = #{universalno},</if>
+            <if test="remarks != null">Remarks = #{remarks},</if>
+        </trim>
+        where ID = #{id}
+    </update>
+
+    <delete id="deleteAorgassetById" parameterType="Integer">
+        delete from aorgasset where ID = #{id}
+    </delete>
+
+    <delete id="deleteAorgassetByIds" parameterType="String">
+        delete from aorgasset where ID in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

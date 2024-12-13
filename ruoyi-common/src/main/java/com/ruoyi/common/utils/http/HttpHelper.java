@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 /**
  * 通用http工具封装
  * 
- * @author ruoyi
+ * @author YOUNG1
  */
 public class HttpHelper
 {

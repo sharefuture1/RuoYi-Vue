@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.wh.mapper.PrinterdetailsMapper">
+    
+    <resultMap type="Printerdetails" id="PrinterdetailsResult">
+        <result property="printerid"    column="PrinterID"    />
+        <result property="printername"    column="PrinterName"    />
+        <result property="consumabletype"    column="ConsumableType"    />
+        <result property="powdercartridgemodel"    column="PowderCartridgeModel"    />
+        <result property="powdermodel"    column="PowderModel"    />
+        <result property="drummodel"    column="DrumModel"    />
+        <result property="drumlife"    column="DrumLife"    />
+        <result property="resetmethod"    column="ResetMethod"    />
+        <result property="additionalnotes"    column="AdditionalNotes"    />
+        <result property="driverdownloadurl"    column="DriverDownloadURL"    />
+        <result property="uploadimg"    column="UploadImg"    />
+    </resultMap>
+
+    <sql id="selectPrinterdetailsVo">
+        select PrinterID, PrinterName, ConsumableType, PowderCartridgeModel, PowderModel, DrumModel, DrumLife, ResetMethod, AdditionalNotes, DriverDownloadURL, UploadImg from printerdetails
+    </sql>
+
+    <select id="selectPrinterdetailsList" parameterType="Printerdetails" resultMap="PrinterdetailsResult">
+        <include refid="selectPrinterdetailsVo"/>
+        <where>  
+            <if test="printername != null  and printername != ''"> and PrinterName like concat('%', #{printername}, '%')</if>
+            <if test="consumabletype != null  and consumabletype != ''"> and ConsumableType = #{consumabletype}</if>
+            <if test="powdercartridgemodel != null  and powdercartridgemodel != ''"> and PowderCartridgeModel like concat('%', #{powdercartridgemodel}, '%')</if>
+            <if test="powdermodel != null  and powdermodel != ''"> and PowderModel like concat('%', #{powdermodel}, '%')</if>
+            <if test="drummodel != null  and drummodel != ''"> and DrumModel like concat('%', #{drummodel}, '%')</if>
+            <if test="drumlife != null "> and DrumLife = #{drumlife}</if>
+            <if test="resetmethod != null  and resetmethod != ''"> and ResetMethod like concat('%', #{resetmethod}, '%')</if>
+            <if test="additionalnotes != null  and additionalnotes != ''"> and AdditionalNotes like concat('%', #{additionalnotes}, '%')</if>
+            <if test="driverdownloadurl != null  and driverdownloadurl != ''"> and DriverDownloadURL = #{driverdownloadurl}</if>
+            <if test="uploadimg != null  and uploadimg != ''"> and UploadImg = #{uploadimg}</if>
+        </where>
+    </select>
+    
+    <select id="selectPrinterdetailsByPrinterid" parameterType="Long" resultMap="PrinterdetailsResult">
+        <include refid="selectPrinterdetailsVo"/>
+        where PrinterID = #{printerid}
+    </select>
+        
+    <insert id="insertPrinterdetails" parameterType="Printerdetails" useGeneratedKeys="true" keyProperty="printerid">
+        insert into printerdetails
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="printername != null and printername != ''">PrinterName,</if>
+            <if test="consumabletype != null">ConsumableType,</if>
+            <if test="powdercartridgemodel != null">PowderCartridgeModel,</if>
+            <if test="powdermodel != null">PowderModel,</if>
+            <if test="drummodel != null">DrumModel,</if>
+            <if test="drumlife != null">DrumLife,</if>
+            <if test="resetmethod != null">ResetMethod,</if>
+            <if test="additionalnotes != null">AdditionalNotes,</if>
+            <if test="driverdownloadurl != null">DriverDownloadURL,</if>
+            <if test="uploadimg != null">UploadImg,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="printername != null and printername != ''">#{printername},</if>
+            <if test="consumabletype != null">#{consumabletype},</if>
+            <if test="powdercartridgemodel != null">#{powdercartridgemodel},</if>
+            <if test="powdermodel != null">#{powdermodel},</if>
+            <if test="drummodel != null">#{drummodel},</if>
+            <if test="drumlife != null">#{drumlife},</if>
+            <if test="resetmethod != null">#{resetmethod},</if>
+            <if test="additionalnotes != null">#{additionalnotes},</if>
+            <if test="driverdownloadurl != null">#{driverdownloadurl},</if>
+            <if test="uploadimg != null">#{uploadimg},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePrinterdetails" parameterType="Printerdetails">
+        update printerdetails
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="printername != null and printername != ''">PrinterName = #{printername},</if>
+            <if test="consumabletype != null">ConsumableType = #{consumabletype},</if>
+            <if test="powdercartridgemodel != null">PowderCartridgeModel = #{powdercartridgemodel},</if>
+            <if test="powdermodel != null">PowderModel = #{powdermodel},</if>
+            <if test="drummodel != null">DrumModel = #{drummodel},</if>
+            <if test="drumlife != null">DrumLife = #{drumlife},</if>
+            <if test="resetmethod != null">ResetMethod = #{resetmethod},</if>
+            <if test="additionalnotes != null">AdditionalNotes = #{additionalnotes},</if>
+            <if test="driverdownloadurl != null">DriverDownloadURL = #{driverdownloadurl},</if>
+            <if test="uploadimg != null">UploadImg = #{uploadimg},</if>
+        </trim>
+        where PrinterID = #{printerid}
+    </update>
+
+    <delete id="deletePrinterdetailsByPrinterid" parameterType="Long">
+        delete from printerdetails where PrinterID = #{printerid}
+    </delete>
+
+    <delete id="deletePrinterdetailsByPrinterids" parameterType="String">
+        delete from printerdetails where PrinterID in 
+        <foreach item="printerid" collection="array" open="(" separator="," close=")">
+            #{printerid}
+        </foreach>
+    </delete>
+</mapper>

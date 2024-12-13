@@ -16,7 +16,13 @@ export function listDbTable(query) {
     params: query
   })
 }
-
+// 下载用户导入模板
+export function importTemplate() {
+  return request({
+    url: '/system/user/importTemplate',
+    method: 'get'
+  })
+}
 // 查询表详细信息
 export function getGenTable(tableId) {
   return request({

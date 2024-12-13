@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.wh.mapper.WhHomeMapper">
+    
+    <resultMap type="WhHome" id="WhHomeResult">
+        <result property="date"    column="date"    />
+        <result property="taskid"    column="taskid"    />
+        <result property="cname"    column="cname"    />
+        <result property="coffice"    column="coffice"    />
+        <result property="trouble"    column="trouble"    />
+        <result property="supplies"    column="supplies"    />
+        <result property="price"    column="price"    />
+        <result property="amount"    column="amount"    />
+        <result property="total"    column="total"    />
+        <result property="remark"    column="remark"    />
+        <result property="isok"    column="isok"    />
+    </resultMap>
+
+    <sql id="selectWhHomeVo">
+        select date, taskid, cname, coffice, trouble, supplies, price, amount, total, remark, isok from wh_home
+    </sql>
+
+    <select id="selectWhHomeList" parameterType="WhHome" resultMap="WhHomeResult">
+        <include refid="selectWhHomeVo"/>
+        <where>  
+            <if test="date != null "> and date like concat('%', #{date}, '%')</if>
+            <if test="cname != null  and cname != ''"> and cname like concat('%', #{cname}, '%')</if>
+            <if test="coffice != null  and coffice != ''"> and coffice like concat('%', #{coffice}, '%')</if>
+            <if test="trouble != null  and trouble != ''"> and trouble like concat('%', #{trouble}, '%')</if>
+            <if test="supplies != null  and supplies != ''"> and supplies like concat('%', #{supplies}, '%')</if>
+            <if test="price != null "> and price = #{price}</if>
+            <if test="amount != null "> and amount = #{amount}</if>
+            <if test="total != null "> and total = #{total}</if>
+            <if test="isok != null "> and isok = #{isok}</if>
+        </where>
+    </select>
+    
+    <select id="selectWhHomeByTaskid" parameterType="Long" resultMap="WhHomeResult">
+        <include refid="selectWhHomeVo"/>
+        where taskid = #{taskid}
+    </select>
+        
+    <insert id="insertWhHome" parameterType="WhHome" useGeneratedKeys="true" keyProperty="taskid">
+        insert into wh_home
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="date != null">date,</if>
+            <if test="cname != null">cname,</if>
+            <if test="coffice != null">coffice,</if>
+            <if test="trouble != null">trouble,</if>
+            <if test="supplies != null">supplies,</if>
+            <if test="price != null">price,</if>
+            <if test="amount != null">amount,</if>
+            <if test="total != null">total,</if>
+            <if test="remark != null">remark,</if>
+            <if test="isok != null">isok,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="date != null">#{date},</if>
+            <if test="cname != null">#{cname},</if>
+            <if test="coffice != null">#{coffice},</if>
+            <if test="trouble != null">#{trouble},</if>
+            <if test="supplies != null">#{supplies},</if>
+            <if test="price != null">#{price},</if>
+            <if test="amount != null">#{amount},</if>
+            <if test="total != null">#{total},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="isok != null">#{isok},</if>
+         </trim>
+    </insert>
+
+    <update id="updateWhHome" parameterType="WhHome">
+        update wh_home
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="date != null">date = #{date},</if>
+            <if test="cname != null">cname = #{cname},</if>
+            <if test="coffice != null">coffice = #{coffice},</if>
+            <if test="trouble != null">trouble = #{trouble},</if>
+            <if test="supplies != null">supplies = #{supplies},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="amount != null">amount = #{amount},</if>
+            <if test="total != null">total = #{total},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="isok != null">isok = #{isok},</if>
+        </trim>
+        where taskid = #{taskid}
+    </update>
+
+    <delete id="deleteWhHomeByTaskid" parameterType="Long">
+        delete from wh_home where taskid = #{taskid}
+    </delete>
+
+    <delete id="deleteWhHomeByTaskids" parameterType="String">
+        delete from wh_home where taskid in 
+        <foreach item="taskid" collection="array" open="(" separator="," close=")">
+            #{taskid}
+        </foreach>
+    </delete>
+</mapper>

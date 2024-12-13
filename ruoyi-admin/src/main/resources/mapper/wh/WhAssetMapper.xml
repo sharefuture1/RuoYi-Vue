@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.wh.mapper.WhAssetMapper">
+    
+    <resultMap type="WhAsset" id="WhAssetResult">
+        <result property="assetid"    column="assetId"    />
+        <result property="assetposition"    column="assetPosition"    />
+        <result property="assetname"    column="assetName"    />
+        <result property="assetdept"    column="assetDept"    />
+    </resultMap>
+
+    <sql id="selectWhAssetVo">
+        select assetId, assetPosition, assetName, assetDept from wh_asset
+    </sql>
+
+    <select id="selectWhAssetList" parameterType="WhAsset" resultMap="WhAssetResult">
+        <include refid="selectWhAssetVo"/>
+        <where>  
+            <if test="assetposition != null  and assetposition != ''"> and assetPosition = #{assetposition}</if>
+            <if test="assetname != null  and assetname != ''"> and assetName like concat('%', #{assetname}, '%')</if>
+            <if test="assetdept != null  and assetdept != ''"> and assetDept = #{assetdept}</if>
+        </where>
+    </select>
+    
+    <select id="selectWhAssetByAssetid" parameterType="Long" resultMap="WhAssetResult">
+        <include refid="selectWhAssetVo"/>
+        where assetId = #{assetid}
+    </select>
+        
+    <insert id="insertWhAsset" parameterType="WhAsset">
+        insert into wh_asset
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="assetid != null">assetId,</if>
+            <if test="assetposition != null">assetPosition,</if>
+            <if test="assetname != null">assetName,</if>
+            <if test="assetdept != null">assetDept,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="assetid != null">#{assetid},</if>
+            <if test="assetposition != null">#{assetposition},</if>
+            <if test="assetname != null">#{assetname},</if>
+            <if test="assetdept != null">#{assetdept},</if>
+         </trim>
+    </insert>
+
+    <update id="updateWhAsset" parameterType="WhAsset">
+        update wh_asset
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="assetposition != null">assetPosition = #{assetposition},</if>
+            <if test="assetname != null">assetName = #{assetname},</if>
+            <if test="assetdept != null">assetDept = #{assetdept},</if>
+        </trim>
+        where assetId = #{assetid}
+    </update>
+
+    <delete id="deleteWhAssetByAssetid" parameterType="Long">
+        delete from wh_asset where assetId = #{assetid}
+    </delete>
+
+    <delete id="deleteWhAssetByAssetids" parameterType="String">
+        delete from wh_asset where assetId in 
+        <foreach item="assetid" collection="array" open="(" separator="," close=")">
+            #{assetid}
+        </foreach>
+    </delete>
+</mapper>

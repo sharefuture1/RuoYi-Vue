@@ -23,7 +23,7 @@ import com.ruoyi.system.service.ISysConfigService;
 /**
  * 验证码操作处理
  * 
- * @author ruoyi
+ * @author YOUNG1
  */
 @RestController
 public class CaptchaController
@@ -80,6 +80,7 @@ public class CaptchaController
         FastByteArrayOutputStream os = new FastByteArrayOutputStream();
         try
         {
+            assert image != null;
             ImageIO.write(image, "jpg", os);
         }
         catch (IOException e)

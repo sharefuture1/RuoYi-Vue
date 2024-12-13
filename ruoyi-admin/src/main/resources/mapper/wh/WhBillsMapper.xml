@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.wh.mapper.WhBillsMapper">
+    
+    <resultMap type="WhBills" id="WhBillsResult">
+        <result property="date"    column="date"    />
+        <result property="department"    column="department"    />
+        <result property="remark1"    column="remark1"    />
+        <result property="office"    column="office"    />
+        <result property="product"    column="product"    />
+        <result property="remark2"    column="remark2"    />
+        <result property="salesman"    column="salesman"    />
+        <result property="saleno"    column="SaleNo"    />
+        <result property="amount"    column="amount"    />
+        <result property="xzdate"    column="xzdate"    />
+        <result property="xzamout"    column="xzamout"    />
+        <result property="total"    column="total"    />
+        <result property="jiaoptime"    column="jiaoptime"    />
+        <result property="checktaker"    column="checktaker"    />
+        <result property="payma"    column="payma"    />
+    </resultMap>
+
+    <sql id="selectWhBillsVo">
+        select date, department, remark1, office, product, remark2, salesman, SaleNo, amount, xzdate, xzamout, total, jiaoptime, checktaker, payma from wh_bills
+    </sql>
+
+    <select id="selectWhBillsList" parameterType="WhBills" resultMap="WhBillsResult">
+        <include refid="selectWhBillsVo"/>
+        <where>  
+            <if test="date != null  and date != ''"> and date like concat('%', #{date}, '%')</if>
+            <if test="department != null  and department != ''"> and department like concat('%', #{department}, '%')</if>
+            <if test="remark1 != null  and remark1 != ''"> and remark1 like concat('%', #{remark1}, '%')</if>
+            <if test="office != null  and office != ''"> and office like concat('%', #{office}, '%')</if>
+            <if test="product != null  and product != ''"> and product like concat('%', #{product}, '%')</if>
+            <if test="remark2 != null  and remark2 != ''"> and remark2 like concat('%', #{remark2}, '%')</if>
+            <if test="salesman != null  and salesman != ''"> and salesman like concat('%', #{salesman}, '%')</if>
+            <if test="saleno != null  and saleno != ''"> and SaleNo like concat('%', #{saleno}, '%')</if>
+            <if test="amount != null  and amount != ''"> and amount = #{amount}</if>
+            <if test="xzdate != null  and xzdate != ''"> and xzdate like concat('%', #{xzdate}, '%')</if>
+            <if test="xzamout != null  and xzamout != ''"> and xzamout = #{xzamout}</if>
+            <if test="total != null  and total != ''"> and total = #{total}</if>
+            <if test="jiaoptime != null  and jiaoptime != ''"> and jiaoptime like concat('%', #{jiaoptime}, '%')</if>
+            <if test="checktaker != null  and checktaker != ''"> and checktaker like concat('%', #{checktaker}, '%')</if>
+            <if test="payma != null  and payma != ''"> and payma like concat('%', #{payma}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectWhBillsByDate" parameterType="String" resultMap="WhBillsResult">
+        <include refid="selectWhBillsVo"/>
+        where date = #{date}
+    </select>
+        
+    <insert id="insertWhBills" parameterType="WhBills">
+        insert into wh_bills
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="date != null">date,</if>
+            <if test="department != null">department,</if>
+            <if test="remark1 != null">remark1,</if>
+            <if test="office != null">office,</if>
+            <if test="product != null">product,</if>
+            <if test="remark2 != null">remark2,</if>
+            <if test="salesman != null">salesman,</if>
+            <if test="saleno != null">SaleNo,</if>
+            <if test="amount != null">amount,</if>
+            <if test="xzdate != null">xzdate,</if>
+            <if test="xzamout != null">xzamout,</if>
+            <if test="total != null">total,</if>
+            <if test="jiaoptime != null">jiaoptime,</if>
+            <if test="checktaker != null">checktaker,</if>
+            <if test="payma != null">payma,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="date != null">#{date},</if>
+            <if test="department != null">#{department},</if>
+            <if test="remark1 != null">#{remark1},</if>
+            <if test="office != null">#{office},</if>
+            <if test="product != null">#{product},</if>
+            <if test="remark2 != null">#{remark2},</if>
+            <if test="salesman != null">#{salesman},</if>
+            <if test="saleno != null">#{saleno},</if>
+            <if test="amount != null">#{amount},</if>
+            <if test="xzdate != null">#{xzdate},</if>
+            <if test="xzamout != null">#{xzamout},</if>
+            <if test="total != null">#{total},</if>
+            <if test="jiaoptime != null">#{jiaoptime},</if>
+            <if test="checktaker != null">#{checktaker},</if>
+            <if test="payma != null">#{payma},</if>
+         </trim>
+    </insert>
+
+    <update id="updateWhBills" parameterType="WhBills">
+        update wh_bills
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="department != null">department = #{department},</if>
+            <if test="remark1 != null">remark1 = #{remark1},</if>
+            <if test="office != null">office = #{office},</if>
+            <if test="product != null">product = #{product},</if>
+            <if test="remark2 != null">remark2 = #{remark2},</if>
+            <if test="salesman != null">salesman = #{salesman},</if>
+            <if test="saleno != null">SaleNo = #{saleno},</if>
+            <if test="amount != null">amount = #{amount},</if>
+            <if test="xzdate != null">xzdate = #{xzdate},</if>
+            <if test="xzamout != null">xzamout = #{xzamout},</if>
+            <if test="total != null">total = #{total},</if>
+            <if test="jiaoptime != null">jiaoptime = #{jiaoptime},</if>
+            <if test="checktaker != null">checktaker = #{checktaker},</if>
+            <if test="payma != null">payma = #{payma},</if>
+        </trim>
+        where date = #{date}
+    </update>
+
+    <delete id="deleteWhBillsByDate" parameterType="String">
+        delete from wh_bills where date = #{date}
+    </delete>
+
+    <delete id="deleteWhBillsByDates" parameterType="String">
+        delete from wh_bills where date in 
+        <foreach item="date" collection="array" open="(" separator="," close=")">
+            #{date}
+        </foreach>
+    </delete>
+</mapper>

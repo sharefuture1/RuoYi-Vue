@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.wh.mapper.WhZyy21Mapper">
+    
+    <resultMap type="WhZyy21" id="WhZyy21Result">
+        <result property="日期"    column="日期"    />
+        <result property="挂账单位"    column="挂账单位"    />
+        <result property="备注"    column="备注"    />
+        <result property="购买科室"    column="购买科室"    />
+        <result property="购买产品"    column="购买产品"    />
+        <result property="备注1"    column="备注1"    />
+        <result property="销售员"    column="销售员"    />
+        <result property="销售单号"    column="销售单号"    />
+        <result property="销售金额"    column="销售金额"    />
+        <result property="销帐日期"    column="销帐日期"    />
+        <result property="销帐金额"    column="销帐金额"    />
+        <result property="合计"    column="合计"    />
+        <result property="交票时间"    column="交票时间"    />
+        <result property="收票人"    column="收票人"    />
+        <result property="收款方式"    column="收款方式"    />
+        <result property="f16"    column="f16"    />
+    </resultMap>
+
+    <sql id="selectWhZyy21Vo">
+        select 日期, 挂账单位, 备注, 购买科室, 购买产品, 备注1, 销售员, 销售单号, 销售金额, 销帐日期, 销帐金额, 合计, 交票时间, 收票人, 收款方式, f16 from wh_zyy21
+    </sql>
+
+    <select id="selectWhZyy21List" parameterType="WhZyy21" resultMap="WhZyy21Result">
+        <include refid="selectWhZyy21Vo"/>
+        <where>  
+            <if test="日期 != null  and 日期 != ''"> and 日期 = #{日期}</if>
+            <if test="挂账单位 != null  and 挂账单位 != ''"> and 挂账单位 like concat('%', #{挂账单位}, '%')</if>
+            <if test="备注 != null  and 备注 != ''"> and 备注 like concat('%', #{备注}, '%')</if>
+            <if test="购买科室 != null  and 购买科室 != ''"> and 购买科室 like concat('%', #{购买科室}, '%')</if>
+            <if test="购买产品 != null  and 购买产品 != ''"> and 购买产品 like concat('%', #{购买产品}, '%')</if>
+            <if test="备注1 != null  and 备注1 != ''"> and 备注1 like concat('%', #{备注1}, '%')</if>
+            <if test="销售员 != null  and 销售员 != ''"> and 销售员 like concat('%', #{销售员}, '%')</if>
+            <if test="销售单号 != null  and 销售单号 != ''"> and 销售单号 like concat('%', #{销售单号}, '%')</if>
+            <if test="销售金额 != null  and 销售金额 != ''"> and 销售金额 like concat('%', #{销售金额}, '%')</if>
+            <if test="销帐日期 != null  and 销帐日期 != ''"> and 销帐日期 like concat('%', #{销帐日期}, '%')</if>
+            <if test="销帐金额 != null  and 销帐金额 != ''"> and 销帐金额 like concat('%', #{销帐金额}, '%')</if>
+            <if test="合计 != null  and 合计 != ''"> and 合计 like concat('%', #{合计}, '%')</if>
+            <if test="交票时间 != null  and 交票时间 != ''"> and 交票时间 like concat('%', #{交票时间}, '%')</if>
+            <if test="收票人 != null  and 收票人 != ''"> and 收票人 like concat('%', #{收票人}, '%')</if>
+            <if test="收款方式 != null  and 收款方式 != ''"> and 收款方式 like concat('%', #{收款方式}, '%')</if>
+            <if test="f16 != null  and f16 != ''"> and f16 = #{f16}</if>
+        </where>
+    </select>
+    
+    <select id="selectWhZyy21By日期" parameterType="String" resultMap="WhZyy21Result">
+        <include refid="selectWhZyy21Vo"/>
+        where 日期 = #{日期}
+    </select>
+        
+    <insert id="insertWhZyy21" parameterType="WhZyy21">
+        insert into wh_zyy21
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="日期 != null">日期,</if>
+            <if test="挂账单位 != null">挂账单位,</if>
+            <if test="备注 != null">备注,</if>
+            <if test="购买科室 != null">购买科室,</if>
+            <if test="购买产品 != null">购买产品,</if>
+            <if test="备注1 != null">备注1,</if>
+            <if test="销售员 != null">销售员,</if>
+            <if test="销售单号 != null">销售单号,</if>
+            <if test="销售金额 != null">销售金额,</if>
+            <if test="销帐日期 != null">销帐日期,</if>
+            <if test="销帐金额 != null">销帐金额,</if>
+            <if test="合计 != null">合计,</if>
+            <if test="交票时间 != null">交票时间,</if>
+            <if test="收票人 != null">收票人,</if>
+            <if test="收款方式 != null">收款方式,</if>
+            <if test="f16 != null">f16,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="日期 != null">#{日期},</if>
+            <if test="挂账单位 != null">#{挂账单位},</if>
+            <if test="备注 != null">#{备注},</if>
+            <if test="购买科室 != null">#{购买科室},</if>
+            <if test="购买产品 != null">#{购买产品},</if>
+            <if test="备注1 != null">#{备注1},</if>
+            <if test="销售员 != null">#{销售员},</if>
+            <if test="销售单号 != null">#{销售单号},</if>
+            <if test="销售金额 != null">#{销售金额},</if>
+            <if test="销帐日期 != null">#{销帐日期},</if>
+            <if test="销帐金额 != null">#{销帐金额},</if>
+            <if test="合计 != null">#{合计},</if>
+            <if test="交票时间 != null">#{交票时间},</if>
+            <if test="收票人 != null">#{收票人},</if>
+            <if test="收款方式 != null">#{收款方式},</if>
+            <if test="f16 != null">#{f16},</if>
+         </trim>
+    </insert>
+
+    <update id="updateWhZyy21" parameterType="WhZyy21">
+        update wh_zyy21
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="挂账单位 != null">挂账单位 = #{挂账单位},</if>
+            <if test="备注 != null">备注 = #{备注},</if>
+            <if test="购买科室 != null">购买科室 = #{购买科室},</if>
+            <if test="购买产品 != null">购买产品 = #{购买产品},</if>
+            <if test="备注1 != null">备注1 = #{备注1},</if>
+            <if test="销售员 != null">销售员 = #{销售员},</if>
+            <if test="销售单号 != null">销售单号 = #{销售单号},</if>
+            <if test="销售金额 != null">销售金额 = #{销售金额},</if>
+            <if test="销帐日期 != null">销帐日期 = #{销帐日期},</if>
+            <if test="销帐金额 != null">销帐金额 = #{销帐金额},</if>
+            <if test="合计 != null">合计 = #{合计},</if>
+            <if test="交票时间 != null">交票时间 = #{交票时间},</if>
+            <if test="收票人 != null">收票人 = #{收票人},</if>
+            <if test="收款方式 != null">收款方式 = #{收款方式},</if>
+            <if test="f16 != null">f16 = #{f16},</if>
+        </trim>
+        where 日期 = #{日期}
+    </update>
+
+    <delete id="deleteWhZyy21By日期" parameterType="String">
+        delete from wh_zyy21 where 日期 = #{日期}
+    </delete>
+
+    <delete id="deleteWhZyy21By日期s" parameterType="String">
+        delete from wh_zyy21 where 日期 in 
+        <foreach item="日期" collection="array" open="(" separator="," close=")">
+            #{日期}
+        </foreach>
+    </delete>
+</mapper>

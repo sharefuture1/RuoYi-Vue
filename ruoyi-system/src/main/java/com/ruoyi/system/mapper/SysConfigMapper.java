@@ -6,7 +6,7 @@ import com.ruoyi.system.domain.SysConfig;
 /**
  * 参数配置 数据层
  * 
- * @author ruoyi
+ * @author YOUNG1
  */
 public interface SysConfigMapper
 {

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>自动补全</title>
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    const dic = {
+      'zyy': '中医院',
+      'cx': '城西社区',
+      'lzyy': '射洪市太和街道城南社区卫生服务中心',
+      'wek': '外二科',
+      'wyk': '外一科',
+      'gsk': '骨三科',
+      'gek': '骨二科',
+      'gyk': '骨一科',
+      'tjzx': '体检中心',
+      'jys': '煎药室',
+      'xyf': '西药房',
+      'hp': '惠普',
+      'mnd': '美能达',
+      'xd': '兄弟',
+      'cdg': '充电辊',
+      'gh': '更换',
+      'xg': '硒鼓',
+      'f': '墨粉',
+      'byg': '备用鼓',
+      '7080': '7080d',
+      '7400': 'm7400',
+      '7400pro': 'm7400pro',
+      '1020': '1020',
+      '1006': '1006',
+      'dyj': '打印机',
+      'jf': '加粉'
+    }
+
+    function autoComplete(str) {
+      let result = '';
+      let i = 0;
+      while (i < str.length) {
+        let found = false;
+        for (const key in dic) {
+          if (str.startsWith(key, i)) {
+            result += dic[key];
+            i += key.length;
+            found = true;
+            break;
+          }
+        }
+        if (!found) {
+          result += str[i];
+          i++;
+        }
+      }
+      return result;
+    }
+
+
+  </script>
+</head>
+
+<body>
+<div class="wrapper">
+  <input id="input" placeholder="输入缩写,按回车自动补 例如：输入zyyxyfhop1020jf 自动补全 输出中医院西药房惠普1020打印机加粉">
+  <p id="result"></p>
+</div>
+
+<script>
+  let input = document.getElementById('input')
+  input.addEventListener('keyup', function (e) {
+    if (e.keyCode === 13) {
+      let result = document.getElementById('result')
+      result.innerText = autoComplete(input.value)
+    }
+  })
+</script>
+</body>
+
+</html>
+
+
+<!--输入zyyxyfhop1020jf输出中医院西药房惠普1020打印机加粉-->

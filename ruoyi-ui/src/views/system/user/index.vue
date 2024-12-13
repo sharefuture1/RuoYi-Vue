@@ -639,7 +639,7 @@ export default {
     handleExport() {
       this.download('system/user/export', {
         ...this.queryParams
-      }, `user_${new Date().getTime()}.xlsx`)
+      }, `用户信息_${new Date().getTime()}.xlsx`)
     },
     /** 导入按钮操作 */
     handleImport() {

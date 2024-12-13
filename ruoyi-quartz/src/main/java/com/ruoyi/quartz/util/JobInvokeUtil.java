@@ -11,7 +11,7 @@ import com.ruoyi.quartz.domain.SysJob;
 /**
  * 任务执行工具
  *
- * @author ruoyi
+ * @author YOUNG1
  */
 public class JobInvokeUtil
 {

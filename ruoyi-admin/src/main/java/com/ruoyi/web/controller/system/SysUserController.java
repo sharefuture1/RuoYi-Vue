@@ -34,7 +34,7 @@ import com.ruoyi.system.service.ISysUserService;
 /**
  * 用户信息
  * 
- * @author ruoyi
+ * @author YOUNG1
  */
 @RestController
 @RequestMapping("/system/user")
@@ -68,9 +68,9 @@ public class SysUserController extends BaseController
     {
         List<SysUser> list = userService.selectUserList(user);
         ExcelUtil<SysUser> util = new ExcelUtil<SysUser>(SysUser.class);
-        util.exportExcel(response, list, "用户数据");
+        util.exportExcel(response, list, "用户数据信息1");
     }
-
+//todo  ruoyi增加导入导出 https://blog.csdn.net/zttxiaozhou/article/details/118935605
     @Log(title = "用户管理", businessType = BusinessType.IMPORT)
     @PreAuthorize("@ss.hasPermi('system:user:import')")
     @PostMapping("/importData")

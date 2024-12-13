@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>自动补全</title>
+  <script>
+    const dic = {
+      'zyy': '中医院',
+      'cx': '城西社区',
+      'lzyy': '射洪市太和街道城南社区卫生服务中心',
+      'zyy': '中医院',
+      'zyy': '中医院',
+      'zyy': '中医院',
+      'zyf': '中药房',
+      'zyf': '中药房',
+      'tjzx': '体检中心',
+      'jys': '煎药室',
+      'xyf': '西药房',
+      'hp': '惠普',
+      'lx': '联想',
+      '7080': '7080d打印机 ',
+      '7400': 'm7400打印机 ',
+      '7400pro': 'm7400pro打印机 ',
+      '1020': '打印机 ',
+      '1020': '打印机 ',
+      '1020': '打印机 ',
+      '1020': '打印机 ',
+      'jf': '加粉'
+    }
+
+    function autoComplete(str) {
+      let result = ''
+      for (let i = 0; i < str.length; i++) {
+        let subStr = str.substr(0, i+1)
+        if (dic[subStr]) {
+          result += dic[subStr]
+          str = str.substr(i+1)
+          i = -1
+        } else {
+          result += subStr
+        }
+      }
+      return result + str
+    }
+  </script>
+</head>
+<body>
+<input id="input">
+<button onclick="complete()">自动补全</button>
+<p id="result"></p>
+
+<script>
+  function complete() {
+    let input = document.getElementById('input')
+    let result = document.getElementById('result')
+    result.innerText = autoComplete(input.value)
+  }
+</script>
+</body>
+</html>

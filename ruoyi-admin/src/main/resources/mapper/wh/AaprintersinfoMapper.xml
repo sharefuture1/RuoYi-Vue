@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.wh.mapper.AaprintersinfoMapper">
+    
+    <resultMap type="Aaprintersinfo" id="AaprintersinfoResult">
+        <result property="printerid"    column="PrinterID"    />
+        <result property="printername"    column="PrinterName"    />
+        <result property="consumabletype"    column="ConsumableType"    />
+        <result property="powdercartridgemodel"    column="PowderCartridgeModel"    />
+        <result property="powdermodel"    column="PowderModel"    />
+        <result property="drummodel"    column="DrumModel"    />
+        <result property="drumlife"    column="DrumLife"    />
+        <result property="resetmethod"    column="ResetMethod"    />
+        <result property="additionalnotes"    column="AdditionalNotes"    />
+        <result property="driverdownloadurl"    column="DriverDownloadURL"    />
+        <result property="manualdownloadurl"    column="ManualDownloadURL"    />
+        <result property="uploadimg"    column="UploadImg"    />
+    </resultMap>
+
+    <sql id="selectAaprintersinfoVo">
+        select PrinterID, PrinterName, ConsumableType, PowderCartridgeModel, PowderModel, DrumModel, DrumLife, ResetMethod, AdditionalNotes, DriverDownloadURL, ManualDownloadURL, UploadImg from aaprintersinfo
+    </sql>
+
+    <select id="selectAaprintersinfoList" parameterType="Aaprintersinfo" resultMap="AaprintersinfoResult">
+        <include refid="selectAaprintersinfoVo"/>
+        <where>  
+            <if test="printerid != null "> and PrinterID = #{printerid}</if>
+            <if test="printername != null  and printername != ''"> and PrinterName like concat('%', #{printername}, '%')</if>
+            <if test="consumabletype != null  and consumabletype != ''"> and ConsumableType like concat('%', #{consumabletype}, '%')</if>
+            <if test="powdercartridgemodel != null  and powdercartridgemodel != ''"> and PowderCartridgeModel like concat('%', #{powdercartridgemodel}, '%')</if>
+            <if test="powdermodel != null  and powdermodel != ''"> and PowderModel like concat('%', #{powdermodel}, '%')</if>
+            <if test="drummodel != null  and drummodel != ''"> and DrumModel like concat('%', #{drummodel}, '%')</if>
+            <if test="drumlife != null "> and DrumLife like concat('%', #{drumlife}, '%')</if>
+            <if test="resetmethod != null  and resetmethod != ''"> and ResetMethod like concat('%', #{resetmethod}, '%')</if>
+            <if test="additionalnotes != null  and additionalnotes != ''"> and AdditionalNotes like concat('%', #{additionalnotes}, '%')</if>
+            <if test="driverdownloadurl != null  and driverdownloadurl != ''"> and DriverDownloadURL like concat('%', #{driverdownloadurl}, '%')</if>
+            <if test="manualdownloadurl != null  and manualdownloadurl != ''"> and ManualDownloadURL like concat('%', #{manualdownloadurl}, '%')</if>
+            <if test="uploadimg != null  and uploadimg != ''"> and UploadImg = #{uploadimg}</if>
+        </where>
+    </select>
+    
+    <select id="selectAaprintersinfoByPrinterid" parameterType="Integer" resultMap="AaprintersinfoResult">
+        <include refid="selectAaprintersinfoVo"/>
+        where PrinterID = #{printerid}
+    </select>
+        
+    <insert id="insertAaprintersinfo" parameterType="Aaprintersinfo" useGeneratedKeys="true" keyProperty="printerid">
+        insert into aaprintersinfo
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="printername != null">PrinterName,</if>
+            <if test="consumabletype != null">ConsumableType,</if>
+            <if test="powdercartridgemodel != null">PowderCartridgeModel,</if>
+            <if test="powdermodel != null">PowderModel,</if>
+            <if test="drummodel != null">DrumModel,</if>
+            <if test="drumlife != null">DrumLife,</if>
+            <if test="resetmethod != null">ResetMethod,</if>
+            <if test="additionalnotes != null">AdditionalNotes,</if>
+            <if test="driverdownloadurl != null">DriverDownloadURL,</if>
+            <if test="manualdownloadurl != null">ManualDownloadURL,</if>
+            <if test="uploadimg != null">UploadImg,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="printername != null">#{printername},</if>
+            <if test="consumabletype != null">#{consumabletype},</if>
+            <if test="powdercartridgemodel != null">#{powdercartridgemodel},</if>
+            <if test="powdermodel != null">#{powdermodel},</if>
+            <if test="drummodel != null">#{drummodel},</if>
+            <if test="drumlife != null">#{drumlife},</if>
+            <if test="resetmethod != null">#{resetmethod},</if>
+            <if test="additionalnotes != null">#{additionalnotes},</if>
+            <if test="driverdownloadurl != null">#{driverdownloadurl},</if>
+            <if test="manualdownloadurl != null">#{manualdownloadurl},</if>
+            <if test="uploadimg != null">#{uploadimg},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAaprintersinfo" parameterType="Aaprintersinfo">
+        update aaprintersinfo
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="printername != null">PrinterName = #{printername},</if>
+            <if test="consumabletype != null">ConsumableType = #{consumabletype},</if>
+            <if test="powdercartridgemodel != null">PowderCartridgeModel = #{powdercartridgemodel},</if>
+            <if test="powdermodel != null">PowderModel = #{powdermodel},</if>
+            <if test="drummodel != null">DrumModel = #{drummodel},</if>
+            <if test="drumlife != null">DrumLife = #{drumlife},</if>
+            <if test="resetmethod != null">ResetMethod = #{resetmethod},</if>
+            <if test="additionalnotes != null">AdditionalNotes = #{additionalnotes},</if>
+            <if test="driverdownloadurl != null">DriverDownloadURL = #{driverdownloadurl},</if>
+            <if test="manualdownloadurl != null">ManualDownloadURL = #{manualdownloadurl},</if>
+            <if test="uploadimg != null">UploadImg = #{uploadimg},</if>
+        </trim>
+        where PrinterID = #{printerid}
+    </update>
+
+    <delete id="deleteAaprintersinfoByPrinterid" parameterType="Integer">
+        delete from aaprintersinfo where PrinterID = #{printerid}
+    </delete>
+
+    <delete id="deleteAaprintersinfoByPrinterids" parameterType="String">
+        delete from aaprintersinfo where PrinterID in 
+        <foreach item="printerid" collection="array" open="(" separator="," close=")">
+            #{printerid}
+        </foreach>
+    </delete>
+</mapper>
